@@ -16,6 +16,10 @@ Agents choose a tool by reading its description. So the moment two tools describ
 
 It happens easily. Skills arrive from different sources, get installed months apart, and nobody re-reads the descriptions as a set. An audit of one working toolbox today: **34 skills, and two of them still share a single name.**
 
+![Two different skills sharing one name, caught — and the line underneath: the Doctor never repairs or changes a skill](media/02-skills-finding.png)
+
+*Caught in the author's own toolbox. The only action offered is to hand it to a person.*
+
 The same blind spot hides slower problems. A tool can ship bundled code that runs shell commands, reach the network, point at a reference file that isn't there, or link out of its own folder through a symlink. None of that is visible from the one line an agent reads before loading it.
 
 ### The person approving can't see the state of the code
@@ -35,6 +39,10 @@ Asking the agent that is about to do the work is not an answer. That's an opinio
 
 **Two, not one.** Instructions and source code are different material with different risks, and one report that mixes them serves neither. Separate checkers get precise triggers, tighter boundaries, and a report you can read in one sitting.
 
+![The skills checker — 34 skills audited, 25 portable, 9 flagged for review, none broken](media/01-skills-doctor.png)
+
+![The projects checker on one project — 597 files read, 0 confirmed, 1 likely, 0 recommendations](media/03-project-doctor.png)
+
 ---
 
 ## What makes a checker worth trusting
@@ -48,6 +56,10 @@ Asking the agent that is about to do the work is not an answer. That's an opinio
 **It fails closed and stays honest about its edges.** A link escaping its own folder is refused and reported, not followed. Scans are bounded — and whatever got skipped for size stays visible in the report rather than quietly counting as clean.
 
 **It says what it cannot prove.** A clean static report is not proof of runtime safety. Saying so is what keeps the clean reports meaningful.
+
+![One finding in full — severity, the file and line, the impact, how to verify it, what to do, and the certainty label](media/04-project-finding.png)
+
+*A real finding in the author's own project. Note the label: **likely**, not confirmed — the report itself asks for runtime confirmation rather than claiming certainty it doesn't have.*
 
 ---
 
