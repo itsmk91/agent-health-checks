@@ -6,6 +6,8 @@ This is a working pattern for auditing both — with two read-only checkers that
 
 It is tool-agnostic. Nothing here depends on a particular model, CLI, or framework.
 
+Both checkers are in this repo — [`skills/`](skills). Two dependency-free Node scripts you can run in a minute.
+
 ---
 
 ## The problem, twice
@@ -42,6 +44,36 @@ Asking the agent that is about to do the work is not an answer. That's an opinio
 ![The skills checker — 34 skills audited, 25 portable, 9 flagged for review, none broken](media/01-skills-doctor.png)
 
 ![The projects checker on one project — 597 files read, 0 confirmed, 1 likely, 0 recommendations](media/03-project-doctor.png)
+
+---
+
+## Run them
+
+Both checkers live in [`skills/`](skills). They are plain Node scripts — no dependencies, no install step, no network access.
+
+```bash
+git clone https://github.com/itsmk91/agent-health-checks.git
+cd agent-health-checks
+
+# check the instructions your agents load
+node skills/audit-agent-skills/scripts/audit-skills.js
+
+# check the code before an agent changes it
+node skills/audit-project-health/scripts/audit-project.js --path /absolute/project/path
+```
+
+Add `--json` to either one for machine-readable output.
+
+**Running Claude Code, Codex, or a compatible agent?** Each folder is a complete Agent Skill — drop it in and the agent picks it up on its own:
+
+```bash
+cp -R skills/audit-agent-skills   ~/.claude/skills/
+cp -R skills/audit-project-health ~/.claude/skills/
+```
+
+Codex reads `~/.codex/skills/` instead; both skills ship the `agents/openai.yaml` it expects.
+
+Neither script executes what it inspects, reaches the network, or writes to anything it reads.
 
 ---
 
